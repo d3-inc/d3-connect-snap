@@ -1,16 +1,17 @@
 {
-  "name": "snap",
+  "name": "@d3-inc/d3connect-snap",
   "version": "0.1.0",
-  "description": "The 'Hello, world!' of MetaMask Snaps, now written in TypeScript.",
+  "description": "Resolve domain/addresses using D3 Connect",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/template-snap-monorepo.git"
+    "url": "https://github.com/d3-inc/d3-connect-snap.git"
   },
-  "license": "(MIT-0 OR Apache-2.0)",
+  "license": "UNLICENSED",
   "main": "./dist/bundle.js",
   "files": [
     "dist/",
-    "snap.manifest.json"
+    "snap.manifest.json",
+    "logo.svg"
   ],
   "scripts": {
     "allow-scripts": "yarn workspace root allow-scripts",

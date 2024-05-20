@@ -4,15 +4,15 @@
   "proposedName": "D3 Connect",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/template-snap-monorepo.git"
+    "url": "https://github.com/d3-inc/d3-connect-snap.git"
   },
   "source": {
-    "shasum": "CQg1YyJI4MdCuEgx5iDxeVkjTMTueNs7piyhljs50dI=",
+    "shasum": "QtjaMgGHKae+2WFqrBBt2PGSOAiC/UUf/ZVtCozRloA=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "logo.svg",
-        "packageName": "snap",
+        "packageName": "@d3-inc/d3connect-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }
