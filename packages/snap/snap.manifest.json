@@ -1,27 +1,39 @@
 {
   "version": "0.1.0",
-  "description": "An example Snap written in TypeScript.",
-  "proposedName": "TypeScript Example",
+  "description": "Resolve domain/addresses using D3 Connect",
+  "proposedName": "D3 Connect",
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
-    "shasum": "TwVBeJ/PL4uARBEFZmgJukYd3XWyTbilkOPhtdg+GvU=",
+    "shasum": "CQg1YyJI4MdCuEgx5iDxeVkjTMTueNs7piyhljs50dI=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
+        "iconPath": "logo.svg",
         "packageName": "snap",
         "registry": "https://registry.npmjs.org/"
       }
     }
   },
   "initialPermissions": {
-    "snap_dialog": {},
-    "endowment:rpc": {
-      "dapps": true,
-      "snaps": false
-    }
+    "endowment:name-lookup": {
+      "chains": [
+        "eip155:1",
+        "eip155:88",
+        "eip155:89",
+        "eip155:27",
+        "eip155:109",
+        "eip155:157",
+        "eip155:719",
+        "eip155:1116",
+        "eip155:1115",
+        "eip155:137",
+        "eip155:80001"
+      ]
+    },
+    "endowment:network-access": {}
   },
   "manifestVersion": "0.1"
 }

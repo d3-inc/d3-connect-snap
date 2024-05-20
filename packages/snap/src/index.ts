@@ -1,36 +1,73 @@
-import type { OnRpcRequestHandler } from '@metamask/snaps-sdk';
+import type { OnNameLookupHandler, OnRpcRequestHandler } from '@metamask/snaps-sdk';
 import { panel, text } from '@metamask/snaps-sdk';
+import { D3Connect } from '@d3-inc/d3connect'
 
-/**
- * Handle incoming JSON-RPC requests, sent through `wallet_invokeSnap`.
- *
- * @param args - The request handler args as object.
- * @param args.origin - The origin of the request, e.g., the website that
- * invoked the snap.
- * @param args.request - A validated JSON-RPC request object.
- * @returns The result of `snap_dialog`.
- * @throws If the request method is not valid for this snap.
- */
-export const onRpcRequest: OnRpcRequestHandler = async ({
-  origin,
-  request,
-}) => {
-  switch (request.method) {
-    case 'hello':
-      return snap.request({
-        method: 'snap_dialog',
-        params: {
-          type: 'confirmation',
-          content: panel([
-            text(`Hello, **${origin}**!`),
-            text('This custom confirmation is just for display purposes.'),
-            text(
-              'But you can edit the snap source code to make it do something, if you want to!',
-            ),
-          ]),
-        },
-      });
-    default:
-      throw new Error('Method not found.');
+type ChainMetadata = {
+  name: string;
+  chain: string;
+  icon: string;
+  rpc: string[],
+  nativeCurrency: {
+    name: string;
+    symbol: string;
+    decimals: number;
+  };
+  infoURL: string;
+  shortName: string;
+  chainId: number;
+  networkId: number;
+  explorers: {
+    name: string;
+    url: string;
+    icon: string;
+    standard: string;
+  }[]
+}
+
+const d3Connect = new D3Connect({
+  dns: {
+    forwarderDomain: 'vana',
+    reverseLookupBaseDomain: 'web3-addr.vana',
+    dnssecVerification: true,
   }
-};
+});
+
+async function fetchChainInformation(chainId: string) {
+  const chainMatch = chainId.match(/^eip155:(?<chainId>\d+)$/);
+  const id = chainMatch?.groups?.chainId;
+  if (!id) { return }
+  /* TODO: Cache results */
+  const response = await fetch('https://chainid.network/chains.json');
+  const data: ChainMetadata[] = await response.json();
+  return data.find(chain => chain.chainId === parseInt(id))
+}
+
+export const onNameLookup: OnNameLookupHandler = async (request) => {
+  if (request.domain) {
+    const chainInfo = await fetchChainInformation(request.chainId);
+
+    if (!chainInfo) {
+      console.log(`Can't load chain info for ${request.chainId}`)
+      return null;
+    }
+
+    const resolvedAddress = await d3Connect.resolve(request.domain, chainInfo?.nativeCurrency?.symbol);
+
+    if (resolvedAddress) {
+      return {
+        resolvedAddresses: [{resolvedAddress, protocol: 'D3 Connect'}]
+      };
+    }
+  }
+
+  if (request.address) {
+    const resolvedDomain = await d3Connect.reverseResolve(request.address, 'ETH')
+    if (resolvedDomain) {
+    return {
+        resolvedDomains: [{resolvedDomain, protocol: 'D3 Connect'}]
+      }
+    }
+  }
+
+  return null;
+}

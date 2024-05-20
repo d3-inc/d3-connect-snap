@@ -27,6 +27,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@d3-inc/d3connect": "^0.1.0",
     "@metamask/snaps-sdk": "^4.0.0",
     "buffer": "^6.0.3"
   },
