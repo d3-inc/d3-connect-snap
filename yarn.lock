@@ -1639,7 +1639,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@d3-inc/d3connect-snap@workspace:packages/snap"
   dependencies:
-    "@d3-inc/d3connect": ^0.1.0
+    "@d3-inc/d3connect": ^0.2.0
     "@jest/globals": ^29.5.0
     "@metamask/auto-changelog": ^3.4.4
     "@metamask/eslint-config": ^12.2.0
@@ -1669,10 +1669,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@d3-inc/d3connect@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@d3-inc/d3connect@npm:0.1.0"
-  checksum: b3e9cb2a642b06d4750df8360ee8b3eed8b6e687aa778803726fe40d9a463b368e227b82a0d3e87d11de114e0843d700da8817910bd5dc982dd19f9f37a8e5df
+"@d3-inc/d3connect@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@d3-inc/d3connect@npm:0.2.0"
+  checksum: 9de83a03d36316bcddaa1e4d13f9e73f7f59285a59ee32ef6ac8af5609f0f800a781ea8e38d9735e8611247f3c16ed52bdd814e8626521621649284af65c2294
   languageName: node
   linkType: hard
 
