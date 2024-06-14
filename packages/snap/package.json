@@ -1,6 +1,6 @@
 {
   "name": "@d3-inc/d3connect-snap",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Resolve domain/addresses using D3 Connect",
   "repository": {
     "type": "git",
