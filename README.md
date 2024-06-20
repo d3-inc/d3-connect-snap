@@ -25,3 +25,4 @@ This runs a local development server listening on http://localhost:8000. Navigat
 Once installed, you can send crypto to any wallet using a D3 name (e.g. `d3connect.core`) that is mapped to a wallet address. To purchase your D3 name, go to the [D3 App
 Marketplace](https://d3.app).
 
+<img width="356" alt="d3connect-core-screenshot" src="https://github.com/d3-inc/d3-connect-snap/assets/629097/c62e0ebe-5613-4b48-9bd9-9ffd531faec0">
