@@ -1,12 +1,12 @@
 {
   "name": "@d3-inc/d3connect-snap",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Resolve domain/addresses using D3 Connect",
   "repository": {
     "type": "git",
     "url": "https://github.com/d3-inc/d3-connect-snap.git"
   },
-  "license": "UNLICENSED",
+  "license": "(MIT-0 OR Apache-2.0)",
   "main": "./dist/bundle.js",
   "files": [
     "dist/",

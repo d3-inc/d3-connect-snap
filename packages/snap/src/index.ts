@@ -27,7 +27,7 @@ type ChainMetadata = {
 const d3Connect = new D3Connect({
   dns: {
     forwarderDomain: 'vana',
-    reverseLookupBaseDomain: 'web3-addr.vana',
+    reverseLookupBaseDomain: 'wallet.vana',
     dnssecVerification: true,
   }
 });
