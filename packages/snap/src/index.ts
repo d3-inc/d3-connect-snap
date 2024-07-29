@@ -1,6 +1,28 @@
 import { D3Connect } from '@d3-inc/d3connect';
 import type { OnNameLookupHandler } from '@metamask/snaps-sdk';
 
+type SnapConfig = {
+  d3Connect?: D3Connect | undefined;
+  fetchFullChains: () => Promise<ChainMetadata[]>;
+};
+
+const config: SnapConfig = {
+  d3Connect: new D3Connect({
+    dns: {
+      forwarderDomain: 'vana',
+      reverseLookupBaseDomain: 'wallet.vana',
+      dnssecVerification: true,
+    },
+  }),
+  async fetchFullChains() {
+    /* TODO: Cache results */
+    const response = await fetch('https://chainid.network/chains.json');
+    const data: ChainMetadata[] = await response.json();
+
+    return data;
+  },
+};
+
 type ChainMetadata = {
   name: string;
   chain: string;
@@ -23,18 +45,11 @@ type ChainMetadata = {
   }[];
 };
 
-const d3Connect = new D3Connect({
-  dns: {
-    forwarderDomain: 'vana',
-    reverseLookupBaseDomain: 'wallet.vana',
-    dnssecVerification: true,
-  },
-});
-
 /**
- * Fetches chain information from https://chainid.network/chains.json and returns ChainMetadata
- * @param chainId
- * @returns ChainMetadata
+ * Fetches chain information from https://chainid.network/chains.json and returns ChainMetadata.
+ *
+ * @param chainId - Chain id in the format `eip155:<id>`, ie `eip155:1` for Ethereum mainnet.
+ * @returns ChainMetadata.
  */
 async function fetchChainInformation(
   chainId: string,
@@ -42,16 +57,14 @@ async function fetchChainInformation(
   const chainMatch = chainId.match(/^eip155:(?<chainId>\d+)$/u);
   const id = chainMatch?.groups?.chainId;
   if (!id) {
-    return;
+    return undefined;
   }
-  /* TODO: Cache results */
-  const response = await fetch('https://chainid.network/chains.json');
-  const data: ChainMetadata[] = await response.json();
-  return data.find((chain) => chain.chainId === parseInt(id));
+
+  const data = await config.fetchFullChains();
+  return data.find((chain) => chain.chainId === parseInt(id, 10));
 }
 
 export const onNameLookup: OnNameLookupHandler = async (request) => {
-  console.log('onNameLookup1', request);
   if (request.domain) {
     const chainInfo = await fetchChainInformation(request.chainId);
 
@@ -60,7 +73,7 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
       return null;
     }
 
-    const resolvedAddress = await d3Connect.resolve(
+    const resolvedAddress = await config.d3Connect?.resolve(
       request.domain,
       chainInfo?.nativeCurrency?.symbol,
     );
@@ -73,7 +86,7 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
   }
 
   if (request.address) {
-    const resolvedDomain = await d3Connect.reverseResolve(
+    const resolvedDomain = await config.d3Connect?.reverseResolve(
       request.address,
       'ETH',
     );
@@ -86,3 +99,13 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
 
   return null;
 };
+
+/**
+ * Setup initial config for Snap, used for testing only.
+ *
+ * @param newConfig - New config to be applied.
+ */
+export function setup(newConfig: SnapConfig) {
+  config.d3Connect = newConfig.d3Connect;
+  config.fetchFullChains = newConfig.fetchFullChains;
+}

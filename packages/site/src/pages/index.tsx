@@ -4,16 +4,10 @@ import {
   ConnectButton,
   InstallFlaskButton,
   ReconnectButton,
-  SendHelloButton,
   Card,
 } from '../components';
 import { defaultSnapOrigin } from '../config';
-import {
-  useMetaMask,
-  useInvokeSnap,
-  useMetaMaskContext,
-  useRequestSnap,
-} from '../hooks';
+import { useMetaMask, useMetaMaskContext, useRequestSnap } from '../hooks';
 import { isLocalSnap, shouldDisplayReconnectButton } from '../utils';
 
 const Container = styled.div`
@@ -37,11 +31,6 @@ const Heading = styled.h1`
   margin-bottom: 2.4rem;
   text-align: center;
 `;
-
-const Span = styled.span`
-  color: ${(props) => props.theme.colors.primary?.default};
-`;
-
 const Subtitle = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.large};
   font-weight: 500;
@@ -61,25 +50,6 @@ const CardContainer = styled.div`
   width: 100%;
   height: 100%;
   margin-top: 1.5rem;
-`;
-
-const Notice = styled.div`
-  background-color: ${({ theme }) => theme.colors.background?.alternative};
-  border: 1px solid ${({ theme }) => theme.colors.border?.default};
-  color: ${({ theme }) => theme.colors.text?.alternative};
-  border-radius: ${({ theme }) => theme.radii.default};
-  padding: 2.4rem;
-  margin-top: 2.4rem;
-  max-width: 60rem;
-  width: 100%;
-
-  & > * {
-    margin: 0;
-  }
-  ${({ theme }) => theme.mediaQueries.small} {
-    margin-top: 1.2rem;
-    padding: 1.6rem;
-  }
 `;
 
 const ErrorMessage = styled.div`
@@ -104,21 +74,14 @@ const Index = () => {
   const { error } = useMetaMaskContext();
   const { isFlask, snapsDetected, installedSnap } = useMetaMask();
   const requestSnap = useRequestSnap();
-  const invokeSnap = useInvokeSnap();
 
   const isMetaMaskReady = isLocalSnap(defaultSnapOrigin)
     ? isFlask
     : snapsDetected;
 
-  const handleSendHelloClick = async () => {
-    await invokeSnap({ method: 'hello', params: {} });
-  };
-
   return (
     <Container>
-      <Heading>
-        Connect to continue
-      </Heading>
+      <Heading>Connect to continue</Heading>
       <Subtitle>
         Get started by editing <code>src/index.ts</code>
       </Subtitle>
