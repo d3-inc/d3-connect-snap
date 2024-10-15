@@ -80,7 +80,13 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
 
     if (resolvedAddress) {
       return {
-        resolvedAddresses: [{ resolvedAddress, protocol: 'D3 Connect' }],
+        resolvedAddresses: [
+          {
+            resolvedAddress,
+            protocol: 'D3 Connect',
+            domainName: request.domain,
+          },
+        ],
       };
     }
   }
