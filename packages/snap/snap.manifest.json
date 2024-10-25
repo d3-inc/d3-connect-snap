@@ -7,7 +7,7 @@
     "url": "https://github.com/d3-inc/d3-connect-snap.git"
   },
   "source": {
-    "shasum": "nlhDsJEC4Tt23Jb/Th4igF81A3RiY5hAsp1OtmP/Gds=",
+    "shasum": "7TXehb2cXf5bjKCZc8fbdcLn8WGvpuc25I+H5gU/D9c=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -18,21 +18,7 @@
     }
   },
   "initialPermissions": {
-    "endowment:name-lookup": {
-      "chains": [
-        "eip155:1",
-        "eip155:88",
-        "eip155:89",
-        "eip155:27",
-        "eip155:109",
-        "eip155:157",
-        "eip155:719",
-        "eip155:1116",
-        "eip155:1115",
-        "eip155:137",
-        "eip155:80001"
-      ]
-    },
+    "endowment:name-lookup": {},
     "endowment:network-access": {}
   },
   "manifestVersion": "0.1"
