@@ -1,5 +1,5 @@
 {
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Resolve domain/addresses using D3 Connect",
   "proposedName": "D3 Connect",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/d3-inc/d3-connect-snap.git"
   },
   "source": {
-    "shasum": "7TXehb2cXf5bjKCZc8fbdcLn8WGvpuc25I+H5gU/D9c=",
+    "shasum": "hCYbcjeRdHViQAQubfoEZIFopHjoiF5bX03h8BolP8s=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
